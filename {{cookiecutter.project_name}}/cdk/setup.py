@@ -14,7 +14,7 @@ setup(
         "Topic :: Software Development :: Build Tools",
         "Programming Language :: Python :: {{cookiecutter.python_major_version}}.{{cookiecutter.python_minor_version}}",
     ],
-    url={{cookiecutter.git_rep_url}},
+    url={{cookiecutter.git_repo_url}},
     author={{cookiecutter.full_name}},
     author_email={{cookiecutter.email}},
     packages=find_packages(exclude=["contrib", "docs", "tests"]),
