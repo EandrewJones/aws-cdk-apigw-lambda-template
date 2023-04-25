@@ -1,7 +1,7 @@
 site_name: AWS Lambda Handler CookBook
 site_description: AWS Lambda Handler CookBook
-site_author: Ran Isenberg
-repo_url: https://github.com/ran-isenberg/aws-lambda-handler-cookbook
+site_author: { { cookiecutter.full_name } }
+repo_url: { { cookiecutter.git_repo_url } }
 edit_uri: edit/main/docs
 
 nav:
@@ -72,26 +72,8 @@ markdown_extensions:
           class: mermaid
           format: !!python/name:pymdownx.superfences.fence_code_format
 
-copyright: Copyright &copy; 2022 Ran Isenberg
-
 plugins:
   - git-revision-date
   - search
 extra_css:
   - stylesheets/extra.css
-
-extra:
-  analytics:
-    provider: google
-    property: G-VN803S5YZ3
-  social:
-    - icon: fontawesome/brands/github-alt
-      link: https://github.com/ran-isenberg/aws-lambda-handler-cookbook
-    - icon: fontawesome/brands/twitter
-      link: https://twitter.com/IsenbergRan
-    - icon: fontawesome/brands/linkedin
-      link: https://www.linkedin.com/in/ranisenberg/
-    - icon: fontawesome/brands/medium
-      link: https://medium.com/@isenberg-ran
-    - icon: fontawesome/solid/globe
-      link: https://www.ranthebuilder.cloud

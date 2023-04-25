@@ -12,7 +12,7 @@ import cdk.my_service.constants as constants
 
 class ApiConstruct(Construct):
 
-    def __init__(self, scope: Construct, id_: str, appconfig_app_name: str) -> None:
+    def __init__(self, scope: Construct, id_: str) -> None:
         super().__init__(scope, id_)
 
         self.api_db = ApiDbConstruct(self, f'{id_}db')
@@ -20,7 +20,7 @@ class ApiConstruct(Construct):
         self.common_layer = self._build_common_layer()
         self.rest_api = self._build_api_gw()
         api_resource: aws_apigateway.Resource = self.rest_api.root.add_resource('api').add_resource(constants.GW_RESOURCE)
-        self._add_post_lambda_integration(api_resource, self.lambda_role, self.api_db.db, appconfig_app_name)
+        self._add_post_lambda_integration(api_resource, self.lambda_role)
 
     def _build_api_gw(self) -> aws_apigateway.RestApi:
         rest_api: aws_apigateway.RestApi = aws_apigateway.RestApi(
@@ -68,7 +68,7 @@ class ApiConstruct(Construct):
             removal_policy=RemovalPolicy.DESTROY,
         )
 
-    def _add_post_lambda_integration(self, api_name: aws_apigateway.Resource, role: iam.Role, db: dynamodb.Table, appconfig_app_name: str):
+    def _add_post_lambda_integration(self, api_name: aws_apigateway.Resource, role: iam.Role, db: dynamodb.Table):
         lambda_function = _lambda.Function(
             self,
             constants.SERVICE_ROLE,
@@ -78,10 +78,6 @@ class ApiConstruct(Construct):
             environment={
                 constants.POWERTOOLS_SERVICE_NAME: constants.SERVICE_NAME,  # for logger, tracer and metrics
                 constants.POWER_TOOLS_LOG_LEVEL: 'DEBUG',  # for logger
-                'CONFIGURATION_APP': appconfig_app_name,  # for feature flags
-                'CONFIGURATION_ENV': constants.ENVIRONMENT,  # for feature flags
-                'CONFIGURATION_NAME': constants.CONFIGURATION_NAME,  # for feature flags
-                'CONFIGURATION_MAX_AGE_MINUTES': constants.CONFIGURATION_MAX_AGE_MINUTES,  # for feature flags
                 'REST_API': 'https://www.ranthebuilder.cloud/api',  # for env vars example
                 'ROLE_ARN': 'arn:partition:service:region:account-id:resource-type:resource-id',  # for env vars example
                 'TABLE_NAME': db.table_name,
