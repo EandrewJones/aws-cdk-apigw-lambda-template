@@ -12,7 +12,7 @@ setup(
     classifiers=[
         "Intended Audience :: Developers",
         "Topic :: Software Development :: Build Tools",
-        f"Programming Language :: Python :: {{{cookiecutter.python_major_version}}}.{{{cookiecutter.python_minor_version}}}",
+        "Programming Language :: Python :: {{cookiecutter.python_major_version}}.{{cookiecutter.python_minor_version}}",
     ],
     url={{cookiecutter.git_rep_url}},
     author={{cookiecutter.full_name}},
@@ -20,6 +20,6 @@ setup(
     packages=find_packages(exclude=["contrib", "docs", "tests"]),
     package_data={"": ["*.json"]},
     include_package_data=True,
-    python_requires=f">={{{cookiecutter.python_major_version}}}.{{{cookiecutter.python_minor_version}}}",
+    python_requires=">={{cookiecutter.python_major_version}}.{{cookiecutter.python_minor_version}}",
     install_requires=[],
 )
